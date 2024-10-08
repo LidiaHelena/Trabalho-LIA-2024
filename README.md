@@ -6,10 +6,10 @@ Projeto final da disciplina de PLIA (Prática Laboratorial de Informática Aplic
 
  Neste projeto, o aluno reproduzirá uma estação meteorológica com o Arduíno. Dessa forma, a partir desse projeto, é possível obter informações sobre a temperatura, umidade e pressão atmosférica do local com sensores ligados à um display no Arduíno.
 
-# Componentes
+## Componentes
 Arduino Uno, sensor de temperatura e umidade (DHT11), sensor de pressão atmosférica (BMP180), display LCD.
 
-# Descrição:
+## Descrição:
 - O sensor DHT11 mede a temperatura e a umidade do ambiente.
 - O sensor BMP180 mede a pressão atmosférica.
 - Os dados coletados são exibidos em um display LCD.
