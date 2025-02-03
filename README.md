@@ -4,7 +4,8 @@ Projeto final da disciplina de PLIA (Prática Laboratorial de Informática Aplic
 
 ## Estação Meteorológica com alerta de temperatura 
 
- Uma estação meteorológica é um conjunto de instrumentos científicos projetados para coletar dados sobre as condições climáticas e atmosféricas em uma determinada área geográfica. Neste trabalho, a aluna reproduzirá uma estação meteorológica com o Arduíno. Dessa forma, a partir desse projeto, é possível obter informações sobre a temperatura e umidade do local com sensores ligados à um display no Arduíno.
+ Uma estação meteorológica é um conjunto de instrumentos científicos projetados para coletar dados sobre as condições climáticas e atmosféricas em uma determinada área geográfica. Neste trabalho, a aluna reproduzirá uma estação meteorológica com o Arduíno. 
+ Dessa forma, a partir desse projeto, é possível obter informações sobre a temperatura e umidade do local com sensores ligados à um display no Arduíno. A partir dos LEDs também se torna possível o alerta do nível de temperatura, sendo o vermelho alerta para clima quente e acima de 40 graus Celsius e o azul para alerta de clima frio e abaixo de 0 graus Celsius.
 
 ## Componentes
 - Arduino Uno (1 unidade)
