@@ -17,6 +17,6 @@ Projeto final da disciplina de PLIA (Prática Laboratorial de Informática Aplic
 
 ## Projeto
 
-<img src="file:///C:/Users/lidia/Downloads/Stunning%20Luulia.png" alt="Texto Alternativo">
+![Texto Alternativo](file:///C:/Users/lidia/Downloads/Stunning%20Luulia.png)
 
 
