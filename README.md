@@ -17,6 +17,6 @@ Projeto final da disciplina de PLIA (Prática Laboratorial de Informática Aplic
 
 ## Projeto
 
-![Texto Alternativo](file:///C:/Users/lidia/Downloads/Stunning%20Luulia.png)
+![Stunning Luulia](https://github.com/user-attachments/assets/a89e3e6c-4371-4f46-80cf-c67fd4c900b6)
 
 
