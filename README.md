@@ -2,17 +2,17 @@
 
 Projeto final da disciplina de PLIA (Prática Laboratorial de Informática Aplicada) da aluna Lídia Helena Oliveira Ugarte da turma ELE-1B no ano de 2024.
 
-## Estação Meteorológica
+## Estação Meteorológica com alerta de temperatura 
 
- Neste projeto, o aluno reproduzirá uma estação meteorológica com o Arduíno. Dessa forma, a partir desse projeto, é possível obter informações sobre a temperatura, umidade e pressão atmosférica do local com sensores ligados à um display no Arduíno.
+ Uma estação meteorológica é um conjunto de instrumentos científicos projetados para coletar dados sobre as condições climáticas e atmosféricas em uma determinada área geográfica. Neste trabalho, a aluna reproduzirá uma estação meteorológica com o Arduíno. Dessa forma, a partir desse projeto, é possível obter informações sobre a temperatura e umidade do local com sensores ligados à um display no Arduíno.
 
 ## Componentes
-Arduino Uno, sensor de temperatura e umidade (DHT11), sensor de pressão atmosférica (BMP180), display LCD.
-
-## Descrição:
-- O sensor DHT11 mede a temperatura e a umidade do ambiente.
-- O sensor BMP180 mede a pressão atmosférica.
-- Os dados coletados são exibidos em um display LCD.
-- Pode ser expandido para registrar dados em um cartão SD ou enviar dados para uma aplicação web.
+- Arduino Uno (1 unidade)
+- Sensor de temperatura e umidade DHT11 ou DHT22 (1 unidade)
+- Display LCD (1 unidade)
+- Placa protoboard de 400 pontos (1 unidade)
+- Fio Jumper macho-macho (21 unidades)
+- Resistores de 220 Ohm (3 unidades)
+- LED (2 unidades)
 
 
