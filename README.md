@@ -11,7 +11,7 @@ Projeto final da disciplina de PLIA (Prática Laboratorial de Informática Aplic
 - Sensor de temperatura e umidade DHT11 ou DHT22 (1 unidade)
 - Display LCD (1 unidade)
 - Placa protoboard de 400 pontos (1 unidade)
-- Fio Jumper macho-macho (21 unidades)
+- Fio Jumper macho-macho (28 unidades)
 - Resistores de 220 Ohm (3 unidades)
 - LED de 5mm (2 unidades)
 
