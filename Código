@@ -1,78 +1,92 @@
-// Biblioteca LCD
-#include <LiquidCrystal.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+#include <DHT.h>
 
-// Inicializa a biblioteca LCD
-LiquidCrystal LCD(12,11,5,4,3,2);
+// Inicializa o LCD com o endereço 0x27, 16 colunas e 2 linhas
+LiquidCrystal_I2C LCD(0x27, 16, 2);
 
-// Define o pino analogico A0 como entrada do Sensor de Temperatura
-int SensorTempPino=0;
+// Pino digital do sensor DHT11
+#define DHTPIN 2     // Pino de dados do DHT11 (pode ser ajustado conforme necessário)
 
-// Define o pino 8 para o alerta de temperatura baixa
-int AlertaTempBaixa=8;
-// Define o pino 13 para o alerta de temperatura alta
-int AlertaTempAlta=13;
+// Tipo de sensor DHT11
+#define DHTTYPE DHT11
 
-// Define temperatura baixa como abaixo de zero grau Celsius
-int TempBaixa=0;
-// Define temperatura alta como acima de 40 graus Celsius
-int TempAlta=40;
+// Inicializa o sensor DHT11
+DHT dht(DHTPIN, DHTTYPE);
+
+// Pinos para alertas de temperatura baixa e alta
+int AlertaTempBaixa = 8;
+int AlertaTempAlta = 13;
+
+// Limites de temperatura (Celsius)
+int TempBaixa = 29;
+int TempAlta = 29.2;
 
 void setup() {
-	// Define o pino de alerta de temperatura baixa como saida
-  	pinMode(AlertaTempBaixa, OUTPUT);
-	// Define o pino de alerta de temperatura alta como saida
-	pinMode(AlertaTempAlta, OUTPUT);
+  // Configura os pinos de alerta como saída
+  pinMode(AlertaTempBaixa, OUTPUT);
+  pinMode(AlertaTempAlta, OUTPUT);
 
-	// Define a quantidade de colunas e linhas do LCD
-	LCD.begin(16,2);
-	// Imprime a mensagem no LCD
-	LCD.print("Temperatura:");
-	// Muda o cursor para a primeira coluna e segunda linha do LCD
-	LCD.setCursor(0,1);
-	// Imprime a mensagem no LCD
-	LCD.print("      C        F");
+  // Inicializa o LCD
+  LCD.begin(16, 2);
+  LCD.backlight();  // Liga o backlight do LCD
+
+  // Exibe a mensagem inicial no LCD
+  LCD.setCursor(0, 0);
+  LCD.print("Temperatura:");
+  LCD.setCursor(0, 1);
+  LCD.print("C   ");
+
+  // Inicializa o sensor DHT11
+  dht.begin();
+
+  // Inicializa a comunicação serial
+  Serial.begin(9600);
 }
 
 void loop() {
-	// Faz a leitura da tensao no Sensor de Temperatura
-	int SensorTempTensao=analogRead(SensorTempPino);
+  // Lê a temperatura e umidade do sensor DHT11
+  float TemperaturaC = dht.readTemperature();  // Temperatura em Celsius
+  float TemperaturaF = dht.readTemperature(true);  // Temperatura em Fahrenheit (true -> Fahrenheit)
 
-  	// Converte a tensao lida
-	float Tensao=SensorTempTensao*5;
-	Tensao/=1024;
+  // Verifica se a leitura falhou
+  if (isnan(TemperaturaC) || isnan(TemperaturaF)) {
+    Serial.println("Falha na leitura do sensor DHT11!");
+    return;
+  }
 
-  	// Converte a tensao lida em Graus Celsius
-	float TemperaturaC=(Tensao-0.5)*100;
+  // Atualiza o LCD com as novas temperaturas
+  LCD.setCursor(0, 1);
+  LCD.print("    ");  // Limpa os valores anteriores
+  LCD.print(TemperaturaC, 1);  // Exibe a temperatura em Celsius
 
-  	// Converte a temperatura em Graus Celsius para Fahrenheit
-	float TemperaturaF=(TemperaturaC*9/5)+32;
+  //LCD.setCursor(9, 1);
+  //LCD.print("    ");  // Limpa os valores anteriores
+  //LCD.print(TemperaturaF, 1);  // Exibe a temperatura em Fahrenheit
 
-  	// Muda o cursor para a primeira coluna e segunda linha do LCD
-  	LCD.setCursor(0,1);
+  // Envia os dados para o Monitor Serial
+  Serial.print("Temperatura em Celsius: ");
+  Serial.print(TemperaturaC, 1);
+  Serial.print(" °C, ");
+  Serial.print("Temperatura em Fahrenheit: ");
+  Serial.print(TemperaturaF, 1);
+  Serial.println(" °F");
 
-  	// Imprime a temperatura em Graus Celsius
-	LCD.print(TemperaturaC);
+  // Verifica se a temperatura está fora dos limites
+  if (TemperaturaC >= TempAlta) {
+    digitalWrite(AlertaTempBaixa, LOW);  // Desliga o alerta de baixa
+    digitalWrite(AlertaTempAlta, HIGH);  // Liga o alerta de alta
+    Serial.println("ALERTA: Temperatura alta!");
+  } else if (TemperaturaC <= TempBaixa) {
+    digitalWrite(AlertaTempBaixa, HIGH);  // Liga o alerta de baixa
+    digitalWrite(AlertaTempAlta, LOW);   // Desliga o alerta de alta
+    Serial.println("ALERTA: Temperatura baixa!");
+  } else {
+    digitalWrite(AlertaTempBaixa, LOW);  // Desliga os alertas
+    digitalWrite(AlertaTempAlta, LOW);
+    Serial.println("Temperatura dentro do intervalo seguro.");
+  }
 
-  	// Muda o cursor para a decima coluna e segunda linha do LCD
-	LCD.setCursor(9,1);
-
-  	// Imprime a temperatura em Graus Fahrenheit
-  	LCD.print(TemperaturaF);
-
-	// Acende ou apaga os alertas luminosos de temperatura baixa e alta
-  	if (TemperaturaC>=TempAlta) {
-  		digitalWrite(AlertaTempBaixa, LOW);
-  		digitalWrite(AlertaTempAlta, HIGH);
-    }
-  	else if (TemperaturaC<=TempBaixa){
-  		digitalWrite(AlertaTempBaixa, HIGH);
-  		digitalWrite(AlertaTempAlta, LOW);
-  	}
-  	else {
-  		digitalWrite(AlertaTempBaixa, LOW);
-  		digitalWrite(AlertaTempAlta, LOW);
-    }
-
-  	// Aguarda 1 segundo
-  	delay(1000);
-}  
+  // Aguarda 2 segundos para a próxima leitura
+  delay(2000);
+}
